@@ -48,7 +48,7 @@ RUN set -ex && \
 WORKDIR "${WORK_DIR}"
 RUN set -ex && \
     git config --global advice.detachedHead false && \
-    git clone --branch=v1.7.0 https://github.com/CMU-Perceptual-Computing-Lab/openpose.git $SRC_DIR && \
+    git clone --branch=v$OPENPOSE_VERSION https://github.com/CMU-Perceptual-Computing-Lab/openpose.git $SRC_DIR && \
     cd $SRC_DIR && \
     git submodule update --init --recursive --remote && \
     sed -i 's#coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);#coded_input->SetTotalBytesLimit(kProtoReadBytesLimit);#g' $SRC_DIR/3rdparty/caffe/src/caffe/util/io.cpp
@@ -59,7 +59,7 @@ WORKDIR "${BUILD_DIR}"
 RUN set -ex && \
     mkdir -p $BUILD_DIR && \
     cmake -D GPU_MODE=CPU_ONLY -D BUILD_PYTHON=1 \
-          #-D DOWNLOAD_BODY_25_MODEL=0 -D DOWNLOAD_FACE_MODEL=0 -D DOWNLOAD_HAND_MODEL=0 \
+          -D DOWNLOAD_BODY_25_MODEL=0 -D DOWNLOAD_FACE_MODEL=0 -D DOWNLOAD_HAND_MODEL=0 \
           -G "Unix Makefiles" -S $SRC_DIR -B . && \
     make -j$(nproc)
 
