@@ -1,7 +1,7 @@
 FROM ubuntu:noble
 
-LABEL org.opencontainers.image.author "Anyshpm Chen<anyshpm@anyshpm.com>"
-LABEL org.opencontainers.image.source https://github.com/anyshpm/docker-openpose
+LABEL org.opencontainers.image.author="Anyshpm Chen<anyshpm@anyshpm.com>"
+LABEL org.opencontainers.image.source=https://github.com/anyshpm/docker-openpose
 
 ARG OPENPOSE_BRANCH
 ENV OPENPOSE_BRANCH=${OPENPOSE_BRANCH:-master}
