@@ -3,8 +3,8 @@ FROM ubuntu:noble
 LABEL org.opencontainers.image.author "Anyshpm Chen<anyshpm@anyshpm.com>"
 LABEL org.opencontainers.image.source https://github.com/anyshpm/docker-openpose
 
-ARG OPENPOSE_VERSION
-ENV OPENPOSE_VERSION=${OPENPOSE_VERSION:-1.7.0}
+ARG OPENPOSE_BRANCH
+ENV OPENPOSE_BRANCH=${OPENPOSE_BRANCH:-master}
 
 # -----------------------------------
 # set apt and pypi sources
@@ -48,7 +48,7 @@ RUN set -ex && \
 WORKDIR "${WORK_DIR}"
 RUN set -ex && \
     git config --global advice.detachedHead false && \
-    git clone --branch=v$OPENPOSE_VERSION https://github.com/CMU-Perceptual-Computing-Lab/openpose.git $SRC_DIR && \
+    git clone --branch=$OPENPOSE_BRANCH https://github.com/CMU-Perceptual-Computing-Lab/openpose.git $SRC_DIR && \
     cd $SRC_DIR && \
     git submodule update --init --recursive --remote && \
     sed -i 's#coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);#coded_input->SetTotalBytesLimit(kProtoReadBytesLimit);#g' $SRC_DIR/3rdparty/caffe/src/caffe/util/io.cpp
